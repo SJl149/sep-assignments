@@ -1,5 +1,4 @@
-class Node
-  attr_accessor :next
+class HashItem
   attr_accessor :key
   attr_accessor :value
 
