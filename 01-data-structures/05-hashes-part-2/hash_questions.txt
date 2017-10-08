@@ -1,0 +1,11 @@
+Describe three collision resolution strategies not mentioned here.
+
+  1) 2-Choice Hashing: This technique uses two hash functions to find two indices, then chooses the location that has fewer objects. If the number of objects in each location is the same, then the first function index is used.
+
+  2) Coalesced hashing: This strategy chains the nodes together within the array when a collision occurs. It combines chaining and open addressing. Memory expense can be high.
+
+  3) Hopscotch Hashing: Combines cuckoo hashing and linear probing. It first defines a neighborhood of buckets near the indexed bucket, then tries to find an empty bucket in that neighborhood. If none, then it will displace other items in a sequence of hops until a bucket close to the original neighborhood is found. This strategy works well with high load factors (around 0.9).
+
+Create your own collision resolution strategy and describe how it works.
+
+  My strategy is called the "LinkedArray" strategy. It is similar to separate chaining, but when a collision occurs and the values are different, it puts the object into an array of values and the hash array's key's location. For example, if we do hash["name1"] = "Bob" and hash["1name"] =  "Jim", then we can put both keys and values in a two item array at the index(key, size). Could work for simple summation of ascii values. 
