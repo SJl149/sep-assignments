@@ -20,11 +20,7 @@ class OpenAddressing
   def [](key)
     i = index(key, size)
     while @items[i].key != key
-      if i == size
-        i = 0
-      else
-        i += 1
-      end
+      i == size ? i = 0 : i += 1
     end
     @items[i].value
   end
@@ -33,30 +29,17 @@ class OpenAddressing
   # We are hashing based on strings, let's use the ascii value of each string as
   # a starting point.
   def index(key, size)
-    x = 0
-    key.each_codepoint { |c| x += c }
+    x = key.each_codepoint.sum
     x % size
   end
 
   # Given an index, find the next open index in @items
   def next_open_index(index)
-    count = 0
-
-
     i = index
-    while @items[i] != nil && i < count
-      if i == size
-        i = 0
-      else
-        i += 1
-      end
-      count += 1
+    while @items[i] != nil && i < size
+      i += 1
     end
-    if count == i
-      return -1
-    else
-      return i 
-    end
+    i == size ? -1 : i
   end
 
   # Simple method to return the number of items in the hash
