@@ -49,6 +49,30 @@ class SeparateChaining
     items_count * 1.0 / size
   end
 
+  # Prints a map of the hash and the load_factor
+  def print
+    puts "#{self}: @items: ["
+    @items.each do |list|
+      if list == nil
+        puts "\tnil;"
+      else
+        item = list.head
+        items = "\t#{item} @key=\"#{item.key}\" @value=\"#{item.value}\""
+        until item.next == nil
+          items += ", #{item} @key=\"#{item.key}\" @value=\"#{item.value}\""
+          item = item.next
+        end
+        puts "#{items};"
+      end
+    end
+    puts "\t],"
+    puts "load_factor: #{load_factor}"
+
+
+
+    #puts "#{self} @items = #{@items}, load_factor = #{load_factor}"
+  end
+
   # Simple method to return the number of items in the hash
   def size
     @items.length
