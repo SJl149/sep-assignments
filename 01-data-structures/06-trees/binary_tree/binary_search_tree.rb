@@ -29,19 +29,38 @@ class BinarySearchTree
     find(root.right, data)
   end
 
+  # Recursive Depth First Search to find Parent
+  def find_parent(root, data)
+    if root.left != nil && root.left.title == data
+      return root
+    elsif root.right != nil && root.right.title == data
+      return root
+    end
+    node = find_parent(root.left, data)
+    if node
+      return node
+    end
+    find_parent(root.right, data)
+  end
+
   def delete(root, data)
     node_to_delete = find(root, data)
     return nil unless node_to_delete
-    if node_to_delete.left == nil && node_to_delete.right == nil
-      node_to_delete = nil
-    elsif node_to_delete.right
+    if node_to_delete == root
+      @root = nil
+    elsif node_to_delete.left == nil && node_to_delete.right == nil
+      parent = find_parent(root, node_to_delete)
+      parent.left == node_to_delete ? parent.left = nil : parent.right = nil
+    elsif node_to_delete.right != nil
       successor = node_to_delete.right
       while successor.left
         successor = successor.left
       end
       node_to_delete.title = successor.title
       node_to_delete.rating = successor.rating
-      delete(root, successor.title)
+      if successor.right
+        successor = successor.right
+      end
     else
       successor = node_to_delete.left
       while successor.right
@@ -49,9 +68,10 @@ class BinarySearchTree
       end
       node_to_delete.title = successor.title
       node_to_delete.rating = successor.rating
-      delete(root, successor.title)
+      if successor.left
+        successor = successor.left
+      end
     end
-
   end
 
   # Recursive Breadth First Search
