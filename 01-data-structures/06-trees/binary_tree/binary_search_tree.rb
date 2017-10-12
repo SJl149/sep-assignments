@@ -31,6 +31,9 @@ class BinarySearchTree
 
   # Recursive Depth First Search to find Parent
   def find_parent(root, data)
+    if root == nil || root.title == data
+      return nil
+    end
     if root.left != nil && root.left.title == data
       return root
     elsif root.right != nil && root.right.title == data
@@ -46,32 +49,50 @@ class BinarySearchTree
   def delete(root, data)
     node_to_delete = find(root, data)
     return nil unless node_to_delete
-    if node_to_delete == root
-      @root = nil
-    elsif node_to_delete.left == nil && node_to_delete.right == nil
-      parent = find_parent(root, node_to_delete)
-      parent.left == node_to_delete ? parent.left = nil : parent.right = nil
-    elsif node_to_delete.right != nil
-      successor = node_to_delete.right
-      while successor.left
-        successor = successor.left
+    parent = find_parent(root, node_to_delete.title)
+    # if node_to_delete has no child
+    if node_to_delete.left == nil && node_to_delete.right == nil
+      if parent.left && parent.left == node_to_delete
+        parent.left = nil
+      else
+        parent.right = nil
       end
-      node_to_delete.title = successor.title
-      node_to_delete.rating = successor.rating
-      if successor.right
-        successor = successor.right
+      node_to_delete = nil
+
+    # if node_to_delete has one child
+    elsif (node_to_delete.left && node_to_delete.right == nil) || (node_to_delete.right && node_to_delete.left == nil )
+      if parent.left && parent.left == node_to_delete
+        if node_to_delete.left
+          parent.left = node_to_delete.left
+        else
+          parent.left = node_to_delete.right
+        end
+      else
+        if node_to_delete.left
+          parent.right = node_to_delete.left
+        else
+          parent.right = node_to_delete.right
+        end
       end
+      
+    # if node has two children
     else
-      successor = node_to_delete.left
-      while successor.right
-        successor = successor.right
-      end
-      node_to_delete.title = successor.title
-      node_to_delete.rating = successor.rating
-      if successor.left
+      successor = node_to_delete.right
+      while successor.left do
         successor = successor.left
       end
+      node_to_delete.title = successor.title
+      node_to_delete.data = successor.rating
+      delete(root, successor.title)
     end
+  end
+
+  def >(node, data)
+    node.rating > find(@root, data).rating
+  end
+
+  def <(node, data)
+    node.rating < find(@root, data).rating
   end
 
   # Recursive Breadth First Search
