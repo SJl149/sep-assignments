@@ -19,17 +19,17 @@ RSpec.describe MinBinaryHeap, type: Class do
   let (:mad_max_2) { Node.new("Mad Max 2: The Road Warrior", 98) }
   let (:footloose) { Node.new("Footloose", 53) }
 
-  describe "#insert(data)" do
+  describe "#insert(node)" do
     it "properly inserts a new node as a left child" do
       heap.insert(root, braveheart)
       expect(root.left.title).to eq "Braveheart"
     end
 
     it "properly inserts a new, smaller node in the right level" do
-      heap.insert(root, district)
+      heap.insert(root, donnie)
       heap.insert(root, jedi)
       heap.insert(root, braveheart)
-      expect(root.left.left.title).to eq "District 9"
+      expect(root.left.left.title).to eq "Donnie Darko"
     end
 
     it "properly inserts a new, greater node in the right level" do
