@@ -52,7 +52,78 @@ class MinBinaryHeap
   end
 
   def delete(root, data)
+    return nil if data == nil
+    # find second-last node
+    current = @last
+    parent = find_parent(root, @last.title)
+    if parent.right == @last
+      second_last = parent.left
+    else
+      while parent != root && parent.left == current
+        current = parent
+        parent = find_parent(root, parent.title)
+      end
+      if parent == root && parent.left == current
+        while parent.right
+          parent = parent.right
+        end
+        second_last = parent
+      else
+        parent = parent.left
+        while parent.right
+          parent = parent.right
+        end
+        second_last = parent
+      end
 
+    end
+
+    # find node_to_delete, set to @last, set @last to second-last, set parent-child to nil
+    node_to_delete = find(root, data)
+    parent_last = find_parent(root, @last.title)
+    node_to_delete.title = @last.title
+    node_to_delete.rating = @last.rating
+
+    if parent_last.left == @last
+      parent_last.left = nil
+    else
+      parent_last.right = nil
+    end
+    @last = second_last
+
+    # check up for heap property
+    parent = find_parent(root, node_to_delete.title)
+    while parent && node_to_delete.rating < parent.rating
+      title = parent.title
+      rating = parent.rating
+      parent.title = node_to_delete.title
+      parent.rating = node_to_delete.rating
+      node_to_delete.title = title
+      node_to_delete.rating = rating
+      node_to_delete = parent
+      parent = find_parent(root, node_to_delete.title)
+    end
+
+    # check down for heap property
+    while (node_to_delete.left != nil && node_to_delete.left.rating < node_to_delete.rating) || (node_to_delete.right && node_to_delete.right.rating < node_to_delete.rating)
+      if node_to_delete.left && node_to_delete.left.rating < node_to_delete.rating
+        title = node_to_delete.left.title
+        rating = node_to_delete.left.rating
+        node_to_delete.left.title = node_to_delete.title
+        node_to_delete.left.rating = node_to_delete.rating
+        node_to_delete.title = title
+        node_to_delete.rating = rating
+        node_to_delete = node_to_delete.left
+      elsif node_to_delete.right != nil && node_to_delete.right.rating < node_to_delete.rating
+        title = node_to_delete.right.title
+        rating = node_to_delete.right.rating
+        node_to_delete.right.title = node_to_delete.title
+        node_to_delete.right.rating = node_to_delete.rating
+        node_to_delete.title = title
+        node_to_delete.rating = rating
+        node_to_delete = node_to_delete.right
+      end
+    end
   end
 
   def find(root, data)

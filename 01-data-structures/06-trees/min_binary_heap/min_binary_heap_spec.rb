@@ -125,8 +125,9 @@ RSpec.describe MinBinaryHeap, type: Class do
       heap.insert(root, braveheart)
       heap.insert(root, donnie)
       heap.insert(root, jedi)
-      heap.delete(root, donnie.title)
-      expect(heap.find(root, donnie.title)).to be_nil
+      title = donnie.title
+      heap.delete(root, title)
+      expect(heap.find(root, title)).to be_nil
     end
 
     it "properly deletes a left-right node" do
@@ -162,7 +163,7 @@ RSpec.describe MinBinaryHeap, type: Class do
       heap.insert(root, inception)
       heap.insert(root, matrix)
       heap.insert(root, district)
-      heap.delete(root, district)
+      heap.delete(root, district.title)
       expect(heap.find(root, district.title)).to be_nil
     end
   end
