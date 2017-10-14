@@ -54,29 +54,7 @@ class MinBinaryHeap
   def delete(root, data)
     return nil if data == nil
     # find second-last node
-    current = @last
-    parent = find_parent(root, @last.title)
-    if parent.right == @last
-      second_last = parent.left
-    else
-      while parent != root && parent.left == current
-        current = parent
-        parent = find_parent(root, parent.title)
-      end
-      if parent == root && parent.left == current
-        while parent.right
-          parent = parent.right
-        end
-        second_last = parent
-      else
-        parent = parent.left
-        while parent.right
-          parent = parent.right
-        end
-        second_last = parent
-      end
-
-    end
+    second_last = find_second_last(root)
 
     # find node_to_delete, set to @last, set @last to second-last, set parent-child to nil
     node_to_delete = find(root, data)
@@ -153,6 +131,30 @@ class MinBinaryHeap
     find_parent(root.right, data)
   end
 
+  def find_second_last(root)
+    current = @last
+    parent = find_parent(root, @last.title)
+    if parent.right == @last
+      return parent.left
+    else
+      while parent != root && parent.left == current
+        current = parent
+        parent = find_parent(root, parent.title)
+      end
+      if parent == root && parent.left == current
+        while parent.right
+          parent = parent.right
+        end
+      else
+        parent = parent.left
+        while parent.right
+          parent = parent.right
+        end
+      end
+      return parent
+    end
+  end
+
   def printf(children=nil)
     queue = Queue.new
     queue.enq(@root)
@@ -169,5 +171,4 @@ class MinBinaryHeap
       end
     end
   end
-
 end
