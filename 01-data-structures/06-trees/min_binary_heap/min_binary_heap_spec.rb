@@ -6,7 +6,7 @@ RSpec.describe MinBinaryHeap, type: Class do
   let (:root) { Node.new("Pacific Rim", 72) }
 
   let (:heap) { MinBinaryHeap.new(root) }
-  let (:pacific_rim) { Node.new("The Matrix", 87) }
+  let (:matrix) { Node.new("The Matrix", 87) }
   let (:braveheart) { Node.new("Braveheart", 78) }
   let (:jedi) { Node.new("Star Wars: Return of the Jedi", 80) }
   let (:donnie) { Node.new("Donnie Darko", 85) }
@@ -42,17 +42,18 @@ RSpec.describe MinBinaryHeap, type: Class do
 
     it "properly inserts a new node that is less than root-child node" do
       heap.insert(root, footloose)
-      expect(heap.root.title).to eq "Footloose"
+      expect(root.title).to eq "Footloose"
     end
 
-    it "properly inserts a new node as a complete level" do
+    it "properly inserts a new node when previous level is complete" do
       heap.insert(root, district)
       heap.insert(root, jedi)
       heap.insert(root, braveheart)
       heap.insert(root, inception)
       heap.insert(root, matrix)
       heap.insert(root, donnie)
-      expect(root.right.right.title).to eq "Donnie Darko"
+      heap.insert(root, shawshank)
+      expect(root.left.left.left.title).to eq "The Shawshank Redemption"
     end
   end
 

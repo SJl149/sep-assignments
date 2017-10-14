@@ -5,24 +5,26 @@ class MinBinaryHeap
   def initialize(root)
     @root = root
     @last = root
+    @heapsize = 1
   end
 
   def insert(root, node)
+    @heapsize += 1
     if @last == root
       root.left = node
     else
+      current = @last
       parent = find_parent(root, @last.title)
       if parent.left == @last
         parent.right = node
       else
-        current = parent
-        parent = find_parent(root, parent.title)
-        while parent.right == node
+        while parent != root && parent.right == current
           current = parent
           parent = find_parent(root, parent.title)
         end
-        if parent == root
-          until parent.left == nil
+
+        if parent == root && @heapsize % 2 == 0
+          while parent.left
             parent = parent.left
           end
           parent.left = node
@@ -37,14 +39,16 @@ class MinBinaryHeap
     end
     @last = node
 
-
     parent = find_parent(root, node.title)
-    if parent.rating < node.rating
-      temp = parent
+    while parent && node.rating < parent.rating
+      title = parent.title
+      rating = parent.rating
       parent.title = node.title
       parent.rating = node.rating
-      node.title = temp.title
-      node.rating = temp.rating
+      node.title = title
+      node.rating = rating
+      node = parent
+      parent = find_parent(root, node.title)
     end
   end
 
