@@ -169,12 +169,12 @@ RSpec.describe MinBinaryHeap, type: Class do
 
   describe "#printf" do
      specify {
-       expected_output = "The Matrix: 87\nStar Wars: Return of the Jedi: 80\nStar Wars: A New Hope: 93\nPacific Rim: 72\nInception: 86\nThe Martian: 92\nStar Wars: The Empire Strikes Back: 94\nBraveheart: 78\nThe Shawshank Redemption: 91\nMad Max 2: The Road Warrior: 98\nDistrict 9: 90\n"
+       expected_output = "Pacific Rim: 72\nBraveheart: 78\nInception: 86\nStar Wars: Return of the Jedi: 80\nThe Martian: 92\nStar Wars: The Empire Strikes Back: 94\nThe Matrix: 87\nDistrict 9: 90\nThe Shawshank Redemption: 91\nStar Wars: A New Hope: 93\nMad Max 2: The Road Warrior: 98\n"
        heap.insert(root, hope)
        heap.insert(root, empire)
        heap.insert(root, jedi)
        heap.insert(root, martian)
-       heap.insert(root, pacific_rim)
+       heap.insert(root, matrix)
        heap.insert(root, inception)
        heap.insert(root, braveheart)
        heap.insert(root, shawshank)
@@ -184,13 +184,13 @@ RSpec.describe MinBinaryHeap, type: Class do
      }
 
      specify {
-       expected_output = "The Matrix: 87\nBraveheart: 78\nMad Max 2: The Road Warrior: 98\nPacific Rim: 72\nInception: 86\nDistrict 9: 90\nStar Wars: Return of the Jedi: 80\nThe Shawshank Redemption: 91\nThe Martian: 92\nStar Wars: The Empire Strikes Back: 94\nStar Wars: A New Hope: 93\n"
+       expected_output = "Pacific Rim: 72\nBraveheart: 78\nInception: 86\nStar Wars: Return of the Jedi: 80\nThe Shawshank Redemption: 91\nDistrict 9: 90\nThe Matrix: 87\nStar Wars: A New Hope: 93\nThe Martian: 92\nMad Max 2: The Road Warrior: 98\nStar Wars: The Empire Strikes Back: 94\n"
        heap.insert(root, mad_max_2)
        heap.insert(root, district)
        heap.insert(root, shawshank)
        heap.insert(root, braveheart)
        heap.insert(root, inception)
-       heap.insert(root, pacific_rim)
+       heap.insert(root, matrix)
        heap.insert(root, martian)
        heap.insert(root, jedi)
        heap.insert(root, empire)
