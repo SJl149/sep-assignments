@@ -74,7 +74,7 @@ class BinarySearchTree
           parent.right = node_to_delete.right
         end
       end
-      
+
     # if node has two children
     else
       successor = node_to_delete.right
@@ -85,14 +85,6 @@ class BinarySearchTree
       node_to_delete.data = successor.rating
       delete(root, successor.title)
     end
-  end
-
-  def >(node, data)
-    node.rating > find(@root, data).rating
-  end
-
-  def <(node, data)
-    node.rating < find(@root, data).rating
   end
 
   # Recursive Breadth First Search
