@@ -1,0 +1,7 @@
+carrie_fisher ["The Burbs"] = [tom_hanks]
+tom_hanks ["Apollo 13"] = [kevin_bacon]
+jack albertson ["Posidon Adventure"] = [roddy_mcdowall]
+roddy_mcdowall ["The Big Picture"] = [kevin_bacon]
+prince ["Purple Rain"] = [morris_day]
+morris_day ["Moving"] = [jacque_lynn_colton]
+jacque_lynn_colton ["Quicksilver"] = [kevin_bacon]
