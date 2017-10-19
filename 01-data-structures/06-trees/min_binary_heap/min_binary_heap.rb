@@ -40,13 +40,7 @@ class MinBinaryHeap
 
     parent = find_parent(root, node.title)
     while parent && node.rating < parent.rating
-      title = parent.title
-      rating = parent.rating
-      parent.title = node.title
-      parent.rating = node.rating
-      node.title = title
-      node.rating = rating
-      node = parent
+      parent, node = swap(parent, node)
       parent = find_parent(root, node.title)
     end
   end
@@ -72,34 +66,16 @@ class MinBinaryHeap
     # check up for heap property
     parent = find_parent(root, node_to_delete.title)
     while parent && node_to_delete.rating < parent.rating
-      title = parent.title
-      rating = parent.rating
-      parent.title = node_to_delete.title
-      parent.rating = node_to_delete.rating
-      node_to_delete.title = title
-      node_to_delete.rating = rating
-      node_to_delete = parent
+      parent, node_to_delete = swap(parent, node_to_delete)
       parent = find_parent(root, node_to_delete.title)
     end
 
     # check down for heap property
     while (node_to_delete.left != nil && node_to_delete.left.rating < node_to_delete.rating) || (node_to_delete.right && node_to_delete.right.rating < node_to_delete.rating)
       if node_to_delete.left && node_to_delete.left.rating < node_to_delete.rating
-        title = node_to_delete.left.title
-        rating = node_to_delete.left.rating
-        node_to_delete.left.title = node_to_delete.title
-        node_to_delete.left.rating = node_to_delete.rating
-        node_to_delete.title = title
-        node_to_delete.rating = rating
-        node_to_delete = node_to_delete.left
+        node_to_delete.left, node_to_delete = swap(node_to_delete.left, node_to_delete)
       elsif node_to_delete.right != nil && node_to_delete.right.rating < node_to_delete.rating
-        title = node_to_delete.right.title
-        rating = node_to_delete.right.rating
-        node_to_delete.right.title = node_to_delete.title
-        node_to_delete.right.rating = node_to_delete.rating
-        node_to_delete.title = title
-        node_to_delete.rating = rating
-        node_to_delete = node_to_delete.right
+        node_to_delete.right, node_to_delete = swap(node_to_delete.right, node_to_delete)
       end
     end
   end
@@ -153,6 +129,14 @@ class MinBinaryHeap
       end
       return parent
     end
+  end
+
+  def swap(node1, node2)
+    title, rating = node1.title, node1.rating
+    node1.title, node1.rating = node2.title, node2.rating
+    node2.title, node2.rating = title, rating
+    node2 = node1
+    return node1, node2
   end
 
   def printf(children=nil)
