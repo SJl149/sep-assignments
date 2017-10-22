@@ -9,10 +9,12 @@ RSpec.describe Bacon, type: Class do
   let (:scott_glenn) { Node.new('scott_glenn') }
   let (:ed_harris) { Node.new('ed_harris') }
   let (:sean_connery) { Node.new('sean_connery') }
+  let (:lori_singer) { Node.new('lori_singer') }
 
   let (:sizzle) { Bacon.new() }
 
   before do
+    kevin_bacon.film_actor_hash["Quicksilver"] = [lori_singer]
     kevin_bacon.film_actor_hash["Tremors"] = [fred_ward, reba_mcentire]
     fred_ward.film_actor_hash["Tremors"] = [kevin_bacon, reba_mcentire]
     reba_mcentire.film_actor_hash["Tremors"] = [kevin_bacon, fred_ward]
@@ -26,19 +28,22 @@ RSpec.describe Bacon, type: Class do
 
   describe "#find_bacon" do
     it "handles nil gracefully" do
-      expect(sizzle.find_bacon(nil)).to eq nil
+      expect(sizzle.dfs_bacon(nil)).to eq nil
     end
 
     it "returns movie with start_node kevin_bacon" do
-
+      answer = []
+      expect(sizzle.dfs_bacon(kevin_bacon)).to eq answer
     end
 
     it "returns one movie with fred_ward" do
-
+      answer = ["Tremors"]
+      expect(sizzle.dfs_bacon(fred_ward)).to eq answer
     end
 
-    it "returns two movies with sean_connery" do
-
+    it "returns three movies with sean_connery" do
+      answer = ["The Hunt for Red October", "The Right Stuff", "Apollo 13"]
+      expect(sizzle.dfs_bacon(sean_connery)).to eq answer
     end
   end
 end

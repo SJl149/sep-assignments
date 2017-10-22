@@ -3,56 +3,43 @@ require_relative 'node'
 class Bacon
 
   def initialize
-
   end
 
-  def find_bacon(node)
+  def dfs_bacon(node)
     return nil unless node
-    films_to_bacon = []
     dist = 0
-    node_list = []
-    queue = []
-    # Loop through node.film_actor_hash BFS
-    node.film_actor_hash.each do | film, actors |
-      films_to_bacon << film
-      # Loop through films in film_actor_hash
-      actors.each do | actor |
-        if actor.name = "kevin_bacon"
-          return films_to_bacon
-          # Return the Bacon and Filmname
-        elsif !queue.include?(actor)
-          # Else place in queue
-          queue << actor
-          # place in adjacency list with distance
-          node_list[dist] += actor
-        end
-      end
-      dist += 1
-    end
-    # when all films looped through, then queue.deq node and cycle through add dist += 1
-    while queue != nil
-      # Loop through node.film_actor_hash BFS
-      node.film_actor_hash.each do | film, actors |
-        films_to_bacon << film
-        # Loop through films in film_actor_hash
-        actors.each do | actor |
-          if actor.name = "kevin_bacon"
-            return films_to_bacon
-            # Return the Bacon and Filmname
-          elsif !queue.include?(actor)
-            # Else place in queue
-            queue << actor
-            # place in adjacency list with distance
-            node_list[dist] += actor
+    actors_visited = []
+    node_stack = [node]
+    film_stack = []
+    found = false
+
+    until found do
+      curr_node = node_stack.pop
+      children = []
+      films = []
+      
+      #return false if curr_node == nil
+      if curr_node == nil || curr_node.name == 'kevin_bacon'
+        found = true
+      else
+        curr_node.film_actor_hash.each do | film, actors |
+
+          unless film_stack.include?(film)
+            films << film
+            film_stack << film
+            actors.each do | actor |
+              unless actors_visited.include?(actor)
+                children << actor
+                actors_visited << actor
+              end
+            end
           end
         end
         dist += 1
+        node_stack = node_stack + children
       end
     end
-
-    return film_actor_hash
+    return film_stack
   end
-
-
 
 end
