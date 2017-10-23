@@ -28,22 +28,22 @@ RSpec.describe Bacon, type: Class do
 
   describe "#find_bacon" do
     it "handles nil gracefully" do
-      expect(sizzle.dfs_bacon(nil)).to eq nil
+      expect(sizzle.find_bacon(nil)).to eq nil
     end
 
     it "returns movie with start_node kevin_bacon" do
       answer = []
-      expect(sizzle.dfs_bacon(kevin_bacon)).to eq answer
+      expect(sizzle.find_bacon(kevin_bacon)).to eq answer
     end
 
     it "returns one movie with fred_ward" do
       answer = ["Tremors"]
-      expect(sizzle.dfs_bacon(fred_ward)).to eq answer
+      expect(sizzle.find_bacon(fred_ward)).to eq answer
     end
 
     it "returns three movies with sean_connery" do
       answer = ["The Hunt for Red October", "The Right Stuff", "Apollo 13"]
-      expect(sizzle.dfs_bacon(sean_connery)).to eq answer
+      expect(sizzle.find_bacon(sean_connery)).to eq answer
     end
   end
 end
