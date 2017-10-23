@@ -23,7 +23,7 @@ class Bacon
         found = true
       else
         curr_node.film_actor_hash.each do | film, actors |
-
+          binding.pry
           if bacon?(actors)
             film_stack << film
             break
@@ -31,10 +31,13 @@ class Bacon
             unless film_list.flatten.include?(film)
               film_list[dist] << film
               film_stack << film
+              binding.pry
               actors.each do | actor |
+                binding.pry
                 unless actors_visited.include?(actor)
                   children << actor
                   actors_visited << actor
+                  binding.pry
                 end
               end
             end
@@ -50,7 +53,11 @@ end
 
 def bacon?(node_array)
   includes = false
-  node_array.each { |actor| includes = true if actor.name = 'kevin_bacon' }
+  node_array.each do |actor|
+    if actor.name == 'kevin_bacon'
+      includes = true
+    end
+  end
   includes
 end
 
@@ -61,16 +68,22 @@ def dist_check(dist)
 end
 
 def search_films(dist, film, actors, connections)
+
   if bacon?(actors)
-    connections << film
     return connections
   elsif dist > 6
     return nil
   else
     dist += 1
+    search = nil
     actors.each do | actor |
       actor.film_actor_hash.each do | film, actors |
-        search_films(dist, film, actors, connections)
+        if search == nil
+          connections << film
+          search = search_films(dist, film, actors, connections)
+        else
+          return connections
+        end
       end
     end
   end
