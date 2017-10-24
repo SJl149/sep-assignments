@@ -20,4 +20,13 @@ fib(12) = fib(11) + fib(10)
             89    +    55
                  144
 
-                 
+3. Fibonacci: Iterative vs Recursive
+  It took 0.000901 seconds to run the recursive method and 0.000007 second to run the iterative method.
+
+4. Given an unsorted collection of a million items, which algorithm would you choose between: linear search and binary search? Would you use an iterative or recursive solution? Explain your reasoning.
+
+  I would use an iterative linear search to find an item in an unsorted collection. Binary search only works if the collection is sorted, and it seems too expensive an operation to first sort, then use binary search to find an item. I would use an iterative method since the search is a simple algorithm and iterative would be faster than recursive.
+
+5. Given a sorted collection of a million items, which algorithm would you choose between linear search and binary search? Would you use an iterative or recursive solution? Explain your reasoning.
+
+  For this situation, I would use an iterative binary search. Since the items are sorted, binary search, which is much faster, should be used to search through such a large collection.
