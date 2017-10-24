@@ -5,7 +5,7 @@ def bsearch_it(array, value)
   while low <= high
     mid = (low + high) / 2
     if array[mid] > value
-      high = mid -1
+      high = mid - 1
     elsif array[mid] < value
       low = mid + 1
     else
