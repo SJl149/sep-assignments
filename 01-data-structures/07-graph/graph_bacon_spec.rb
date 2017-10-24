@@ -26,24 +26,24 @@ RSpec.describe Bacon, type: Class do
     kevin_bacon.film_actor_hash["Apollo 13"] = [ed_harris]
   end
 
-  describe "#find_bacon" do
+  describe "#find_kevin" do
     it "handles nil gracefully" do
-      expect(sizzle.find_bacon(nil)).to eq nil
+      expect(sizzle.find_kevin(nil)).to eq nil
     end
 
     it "returns movie with start_node kevin_bacon" do
       answer = []
-      expect(sizzle.find_bacon(kevin_bacon)).to eq answer
+      expect(sizzle.find_kevin(kevin_bacon)).to eq answer
     end
 
     it "returns one movie with fred_ward" do
       answer = ["Tremors"]
-      expect(sizzle.find_bacon(fred_ward)).to eq answer
+      expect(sizzle.find_kevin(fred_ward)).to eq answer
     end
 
     it "returns three movies with sean_connery" do
       answer = ["The Hunt for Red October", "The Right Stuff", "Apollo 13"]
-      expect(sizzle.find_bacon(sean_connery)).to eq answer
+      expect(sizzle.find_kevin(sean_connery)).to eq answer
     end
   end
 end
