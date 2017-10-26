@@ -37,4 +37,9 @@ class Bacon
     actor.name != "kevin_bacon" && !queue.include?(actor) && !actors_visited.include?(actor.name)
   end
 
+  def create_adj_list
+    # Create adjacency list to keep track of films and actors
+    # Once Bacon is retrace back to source
+    # Else if dist > 6 or film_actor_hash for actor is empty or films have all been visited, then delete film from connections
+  end
 end
