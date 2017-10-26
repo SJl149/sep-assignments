@@ -13,6 +13,7 @@ RSpec.describe Bacon, type: Class do
   let (:zhang_ziyi) { Node.new('zhang_ziyi') }
   let (:zhou_yunfat) { Node.new('zhou_yunfat') }
   let (:michelle_yeoh) { Node.new('michelle_yeoh') }
+  let (:harrison_ford) { Node.new('harrison_ford') }
 
   let (:sizzle) { Bacon.new() }
 
@@ -21,6 +22,8 @@ RSpec.describe Bacon, type: Class do
     kevin_bacon.film_actor_hash["Tremors"] = [fred_ward, reba_mcentire]
     fred_ward.film_actor_hash["Tremors"] = [kevin_bacon, reba_mcentire]
     reba_mcentire.film_actor_hash["Tremors"] = [kevin_bacon, fred_ward]
+    sean_connery.film_actor_hash["Indiana Jones and the Last Crusade"] = [harrison_ford]
+    harrison_ford.film_actor_hash["Indiana Jones and the Last Crusade"] = [sean_connery]
     scott_glenn.film_actor_hash["The Hunt for Red October"] = [sean_connery]
     sean_connery.film_actor_hash["The Hunt for Red October"] = [scott_glenn]
     ed_harris.film_actor_hash["The Right Stuff"] = [scott_glenn]
