@@ -10,6 +10,9 @@ RSpec.describe Bacon, type: Class do
   let (:ed_harris) { Node.new('ed_harris') }
   let (:sean_connery) { Node.new('sean_connery') }
   let (:lori_singer) { Node.new('lori_singer') }
+  let (:zhang_ziyi) { Node.new('zhang_ziyi') }
+  let (:zhou_yunfat) { Node.new('zhou_yunfat') }
+  let (:michelle_yeoh) { Node.new('michelle_yeoh') }
 
   let (:sizzle) { Bacon.new() }
 
@@ -24,26 +27,35 @@ RSpec.describe Bacon, type: Class do
     scott_glenn.film_actor_hash["The Right Stuff"] = [ed_harris]
     ed_harris.film_actor_hash["Apollo 13"] = [kevin_bacon]
     kevin_bacon.film_actor_hash["Apollo 13"] = [ed_harris]
+    zhang_ziyi.film_actor_hash["Crouching Tiger, Hidden Dragon"] = [zhou_yunfat, michelle_yeoh]
+    michelle_yeoh.film_actor_hash["Crouching Tiger, Hidden Dragon"] = [zhou_yunfat, zhang_ziyi]
+    zhou_yunfat.film_actor_hash["Crouching Tiger, Hidden Dragon"] = [michelle_yeoh, zhang_ziyi]
   end
 
   describe "#find_kevin" do
     it "handles nil gracefully" do
-      expect(sizzle.find_kevin(nil)).to eq nil
+      answer = []
+      expect(sizzle.find_bacon(nil)).to eq answer
     end
 
     it "returns movie with start_node kevin_bacon" do
       answer = []
-      expect(sizzle.find_kevin(kevin_bacon)).to eq answer
+      expect(sizzle.find_bacon(kevin_bacon)).to eq answer
     end
 
     it "returns one movie with fred_ward" do
       answer = ["Tremors"]
-      expect(sizzle.find_kevin(fred_ward)).to eq answer
+      expect(sizzle.find_bacon(fred_ward)).to eq answer
     end
 
     it "returns three movies with sean_connery" do
       answer = ["The Hunt for Red October", "The Right Stuff", "Apollo 13"]
-      expect(sizzle.find_kevin(sean_connery)).to eq answer
+      expect(sizzle.find_bacon(sean_connery)).to eq answer
+    end
+
+    it "returns empty array for zero connections" do
+      answer = []
+      expect(sizzle.find_bacon(zhang_ziyi)).to eq answer
     end
   end
 end

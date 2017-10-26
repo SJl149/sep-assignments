@@ -6,104 +6,35 @@ class Bacon
   end
 
   def find_bacon(node)
-    return nil unless node
-    dist = 0
+    return [] unless node && node.name != "kevin_bacon"
     actors_visited = []
-    node_stack = [node]
-    film_stack = []
-    film_list = [[],[],[],[],[],[],[]]
-    found = false
+    queue = [node]
+    bacon = false
+    connections = []
 
-    until found do
-      curr_node = node_stack.pop
-      children = []
-      dist += 1
-
-      if curr_node == nil || curr_node.name == 'kevin_bacon'
-        found = true
-      else
-        curr_node.film_actor_hash.each do | film, actors |
-          binding.pry
-          if bacon?(actors)
-            film_stack << film
-            break
-          else
-            unless film_list.flatten.include?(film)
-              film_list[dist] << film
-              film_stack << film
-              binding.pry
-              actors.each do | actor |
-                binding.pry
-                unless actors_visited.include?(actor)
-                  children << actor
-                  actors_visited << actor
-                  binding.pry
-                end
-              end
-            end
-          end
+    while (queue.length != 0) && bacon == false
+      curr_node = queue.shift
+      curr_node.film_actor_hash.each do | film, actors |
+        if !connections.include?(film)
+          connections << film
         end
-        node_stack = node_stack + children
-      end
-    end
-    return film_stack
-  end
-
-  def bacon?(node_array)
-    includes = false
-    node_array.each do |actor|
-      if actor.name == 'kevin_bacon'
-        includes = true
-      end
-    end
-    includes
-  end
-
-  def dist_check(dist)
-    if dist > 6
-      return true
-    end
-  end
-
-  def search_films(dist, film, actors, connections)
-    if bacon?(actors)
-      return connections
-    elsif dist > 6
-      return nil
-    else
-      dist += 1
-      search = nil
-      actors.each do | actor |
-        actor.film_actor_hash.each do | hash_film, hash_actors |
-          if search == nil
-            connections << hash_film unless connections.include?(hash_film)
-            search = search_films(dist, hash_film, hash_actors, connections)
-          else
+        actors.each do | actor |
+          if unvisited?(queue, actor, actors_visited)
+            queue << actor
+            actors_visited << actor.name
+          end
+          if actor.name == "kevin_bacon"
+            bacon = true
             return connections
           end
         end
       end
     end
+    return []
   end
 
-  def find_kevin(node)
-    return nil unless node
-    dist = 0
-    connections = []
-    if node == nil || node.name == "kevin_bacon"
-      return connections
-    else
-      node.film_actor_hash.each do | film, actors |
-        if bacon?(actors)
-          connections << film
-          break
-        else
-          connections = search_films(dist, film, actors, connections)
-          # break if connections
-        end
-      end
-    end
-    connections
+  def unvisited?(queue, actor, actors_visited)
+    actor.name != "kevin_bacon" && !queue.include?(actor) && !actors_visited.include?(actor.name)
   end
 
 end
