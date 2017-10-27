@@ -215,11 +215,19 @@ kevin_bacon.film_actor_hash["Tremors"] =[fred_ward, micheal_gross, reba_mcentire
 kevin_bacon.film_actor_hash["Footloose"] = [lori_singer, john_lithgow, dianne_wiest, chris_penn, sarah_jessica_parker]
 kevin_bacon.film_actor_hash["Animal House"] = [tom_hulce, mark_metcalf, mary_louise_weller, john_belushi, karen_allen, tim_matheson]
 
+puts ""
 puts "Start: Sean Connery"
 puts sizzle.find_bacon(sean_connery)
+puts ""
 
 puts "Start: Fred Ward"
 puts sizzle.find_bacon(fred_ward)
+puts ""
 
 puts "Start: Gene Wilder"
 puts sizzle.find_bacon(gene_wilder)
+puts ""
+
+puts "Start: Prince"
+puts sizzle.find_bacon(prince)
+puts ""
