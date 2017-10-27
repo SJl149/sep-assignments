@@ -3,7 +3,6 @@ require_relative 'node'
 class Bacon
 
   def initialize
-    @graph = []
   end
 
   def find_bacon(node)
@@ -11,6 +10,8 @@ class Bacon
     queue = [node]
     film_list = [[],[],[],[],[],[]]
     dist = 0
+    actors_visited = []
+
     node.dist = 0
     while (queue.length != 0) && dist < 7
       curr_node = queue.shift
@@ -19,6 +20,7 @@ class Bacon
           film_list[dist] << film
         end
         actors.each do | actor |
+          actors_visited << actor
           if actor.dist == nil
             actor.dist = dist + 1
             actor.predecessor = curr_node
@@ -26,6 +28,7 @@ class Bacon
           end
           if actor.name == "kevin_bacon"
             if actor.predecessor == node
+              reset_nodes(actors_visited)
               return [film]
             end
             path = []
@@ -40,12 +43,20 @@ class Bacon
               child = parent
               dist -= 1
             end
+            reset_nodes(actors_visited)
             return path
           end
         end
       end
     end
+    reset_nodes(actors_visited)
     return []
   end
 
+  def reset_nodes(actors)
+    actors.each do |actor|
+      actor.dist = nil
+      actor.predecessor = nil
+    end
+  end
 end
