@@ -34,10 +34,10 @@ class Bacon
               parent = child.predecessor
               parent.film_actor_hash.each do |movie, cast|
                 if cast.include?(child)
-                  path << movie
+                  path.unshift(movie)
                 end
               end
-              parent = child.predecessor
+              child = parent
               dist -= 1
             end
             return path
