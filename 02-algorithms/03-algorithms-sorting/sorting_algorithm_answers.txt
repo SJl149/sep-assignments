@@ -1,0 +1,8 @@
+The array given to benchmark the three algorithms is randomly generated but is similar in structure to the following:
+[8274, 1410, 5217, 9863, 3318, 6848, 5253, 2830, 7069, 3566, 6925, 2201, 6797, 1273, 9448, 8551, 497, 6343, 510, 3174, 5039, 7377, 9492, 8101, 7608, 7912, 322, 1982, 8027, 4732, 1419, 1075, 321, 498, 7173, 5340, 6545, 9588, 5068, 252, 20, 1937, 5382, 5065, 2611, 3011, 4828, 1087, 8500, 3079]
+
+The algorithm heap_sort was consistently the fastest of the three with quick_sort very close in second. Bucket_sort came in third at 300 millionths of a second slower when bucket_size was set at 10. However, in further tests when bucket_size was increased to 50 or 500, bucket_sort ended up the fastest of the three. Bucket sort runs on average performance O(n) but the number of buckets must be equal to the array length and the array must be evenly distributed into the buckets. If the two conditions are not met, then the performance will be O(n ^ 2), which is insertion_sort.
+
+Heap sort and quick sort are very similar in performance with a few differences. Heap sort operates in-place and its worst case performance is O(n log n), while quick sort can also be implemented in-place and on average has a performance of O(n log n), but worse case is O(n ^ 2), which is rare. In my research, I found that quick sort is vulnerable to having its worst case performance deliberately triggered in large datasets, which could create security risks. It also does not perform well when there are many repeated items. In these instances, heap sort is preferred. 
+
+For these datasets used in the tests, there isn't much of a difference in performance.
