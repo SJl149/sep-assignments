@@ -1,0 +1,40 @@
+1. What's the big-O of goodbye_world.rb?
+
+  The big-O is constant time or O(1) because it will take the same amount of time no matter how big n is.
+
+2. What's the big-O of find_largest.rb?
+
+  The big-O of this algorithm is linear time or O(n) where n is the number of items in the collection. The only operation that affects the complexity is looping through the array, and it will loop n times through the array.
+
+3. What's the big-O of find_largest_2D_array.rb?
+
+  The big-O of this algorithm should be O(n). The complexity is linear because however many number of items are in the 2D array are the number of operations performed. If we say there are j items in each sub-array, then we simply add all the j's in the main array and we will have the number of items. If j is a constant number, then we could find the number of elements by multiplying j times the number of j arrays, or i. This would give us the same result.
+
+4. What's the big-O of numbers_recurive.rb?
+
+  The big-O of numbers_recursive is O(2 ^ n) or exponential time. The reasoning is if we assume n > 1, then the algorithm will perform two recursive calls until n returns 1 and 0. So if n == 10, the table would look like this:
+
+    n   | n - 1 | n - 2
+  ------|-------|--------
+    10  |  9    |   8
+    9   |  8    |   7
+    8   |  7    |   6
+    7   |  6    |   5
+    6   |  5    |   4
+    5   |  4    |   3
+    4   |  3    |   2
+    3   |  2    |   1
+    2   |  1    |   0
+    1   |       |
+    0   |       |
+
+    We will perform 2 operations for each loop until we reach 1 and 0. Therefore, the number of operations is 2 to the n power, O(2 ^ n).
+
+
+5. What's the big-O of numbers_iterative.rb?
+
+  The big-O of this algorithm is O(n) or linear time. There are several assignment operations occurring within the loop, but the number of iterations is the number of elements n. If n = 2, then we will perform 2 iterations. If n = 10,000, then we will perform 10,000 iterations.
+
+6. What's the big-O of sort.rb?
+
+  The big-O of this quick sort algorithm is O(n ^ 2), although this is rare because it will occur when all items are equal or when the algorithm repeatedly partitions the array into two subarrays of 0 and n-1 sizes. The more likely complexity of this is O(n log n). While this is the average case, it is the most likely occurrence using this algorithm. 
