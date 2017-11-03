@@ -1,3 +1,5 @@
+require 'benchmark'
+
 # This method takes n arrays as input and combine them in sorted ascending  order
 def code_optimiztions_ruby(*arrays)
   combined_array = arrays.flatten
@@ -20,4 +22,29 @@ def code_optimiztions_ruby(*arrays)
 
   # Return the sorted array
   sorted_array
+end
+
+# Benchmark time_optimiztions_ruby
+collection = (0..10000).to_a
+array1 = []
+array2 = []
+array3 = []
+array4 = []
+
+100.times do
+  array1 << collection.sample
+  array2 << collection.sample
+  array3 << collection.sample
+  array4 << collection.sample
+end
+
+reverse_collection = collection.reverse
+
+Benchmark.bm do |bm|
+  bm.report("Benchmark test for #code_optimiztions_ruby") do
+    code_optimiztions_ruby(array1, array2, array3, array4)
+  end
+  bm.report("Benchmark test for #code_optimiztions_ruby with reverse_collection") do
+    code_optimiztions_ruby(reverse_collection)
+  end
 end

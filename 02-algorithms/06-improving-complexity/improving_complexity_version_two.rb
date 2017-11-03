@@ -1,3 +1,5 @@
+require 'benchmark'
+
 # This method takes n arrays as input and combine them in sorted ascending  order
 def time_optimiztions_ruby(*arrays)
   combined_array = arrays.flatten
@@ -9,8 +11,8 @@ def merge_sort(ary)
     return ary
   else
     mid = ary.size / 2
-    left = mergesort(ary[0..mid - 1])
-    right = mergesort(ary[mid..ary.length])
+    left = merge_sort(ary[0..mid - 1])
+    right = merge_sort(ary[mid..ary.length])
     merge(left, right)
   end
 end
@@ -27,8 +29,7 @@ def merge(left, right)
   end
 end
 
-time_optimiztions_ruby([1,5,2,6,3,5], [3,6,4,5,9,8,33])
-
+# Benchmark time_optimiztions_ruby
 collection = (0..10000).to_a
 array1 = []
 array2 = []
@@ -40,4 +41,15 @@ array4 = []
   array2 << collection.sample
   array3 << collection.sample
   array4 << collection.sample
+end
+
+reverse_collection = collection.reverse
+
+Benchmark.bm do |bm|
+  bm.report("Benchmark test for #time_optimiztions_ruby") do
+    time_optimiztions_ruby(array1, array2, array3, array4)
+  end
+  bm.report("Benchmark test for #time_optimiztions_ruby with reverse_collection") do
+    time_optimiztions_ruby(reverse_collection)
+  end
 end
