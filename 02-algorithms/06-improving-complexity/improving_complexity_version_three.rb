@@ -24,7 +24,7 @@ array2 = []
 array3 = []
 array4 = []
 
-100.times do
+1000.times do
   array1 << collection.sample
   array2 << collection.sample
   array3 << collection.sample
@@ -39,5 +39,8 @@ Benchmark.bm do |bm|
   end
   bm.report("Benchmark test for #space_optimizations_ruby with reverse_collection") do
     space_optimizations_ruby(reverse_collection)
+  end
+  bm.report("Benchmark test for #space_optimizations_ruby with collection") do
+    space_optimizations_ruby(collection)
   end
 end

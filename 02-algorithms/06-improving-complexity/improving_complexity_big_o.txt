@@ -1,0 +1,25 @@
+1. Version one is an insertion sort not in-place so the big-O notation for time is O(n^2) and for space is O(n). The worst case scenario is iterating through the entire array for each item, which would yield n * n times or n^2. The original arrays are not changed and the sorted items are saved in a sorted array, so we need n more space in memory.
+
+2. Version two uses merge sort to sort the arrays with big-O notations of O(n log n) for time and O(n) for space. In the worst case, the algorithm must divide into two arrays and sort n times, which gives us n log n. This version uses separate arrays for left and right sides that add up to a size of n, so the space complexity is n.
+
+3. Version three implements insertion sort in-place, giving it O(n^2) for time and O(1) for space. The time complexity is the same as version one, but since it is sorted in-place, no real extra memory is necessary. Therefore, space complexity is constant.
+
+Here are the results of benchmark testing:
+
+Version 1:
+                                              user     system      total        real
+Benchmark test for #code_optimiztions_ruby  0.180000   0.000000   0.180000 (  0.178125)
+Benchmark test for with reverse_collection  0.000000   0.000000   0.000000 (  0.007599)
+Benchmark test for #co..uby with collection  2.050000   0.000000   2.050000 (  2.049492)
+
+Version 2:
+                                              user     system      total        real
+Benchmark test for #time_optimiztions_ruby  0.050000   0.030000   0.080000 (  0.077256)
+Benchmark test for  with reverse_collection  0.110000   0.080000   0.190000 (  0.198863)
+Benchmark test for #time..by with collection  0.110000   0.100000   0.210000 (  0.209988)
+
+Version 3:
+                                                user     system      total        real
+Benchmark test for #space_optimizations_ruby  0.210000   0.000000   0.210000 (  0.208662)
+Benchmark test for  with reverse_collection  2.510000   0.000000   2.510000 (  2.517786)
+Benchmark test for #space..y with collection  0.000000   0.000000   0.000000 (  0.001296)
