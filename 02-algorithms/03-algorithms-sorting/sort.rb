@@ -1,24 +1,33 @@
 require 'benchmark'
 
 # Quicksort
-def quick_sort(collection)
-  lngth = collection.length
-  if lngth <= 1
-    collection
-  else
-    pivot = collection.delete_at(lngth - 1)
-    smaller = []
-    larger = []
-    collection.each do |item|
-      item <= pivot ? smaller << item : larger << item
-    end
-    sorted = []
-    sorted << quick_sort(smaller)
-    sorted << pivot
-    sorted << quick_sort(larger)
-    sorted.flatten!
+def quick_sort(collection, left=0, right=nil)
+  right = collection.length - 1 if right == nil
+  if left < right
+    pivot_index = left
+    part_pivot = partition(collection, left, right, pivot_index)
+    quick_sort(collection, left, part_pivot - 1)
+    quick_sort(collection, part_pivot + 1, right)
   end
+  collection
 end
+
+def partition(collection, left, right, pivot_index)
+  pivot = collection[pivot_index]
+  collection[pivot_index], collection[right] = collection[right], collection[pivot_index]
+  index = left
+
+  (left..right - 1).each do |i|
+    if collection[i] < pivot
+      collection[i], collection[index] = collection[index], collection[i]
+      index += 1
+    end
+  end
+
+  collection[index], collection[right] = collection[right], collection[index]
+  index
+end
+
 
 # Heap Sort
 def heap_sort(collection)
