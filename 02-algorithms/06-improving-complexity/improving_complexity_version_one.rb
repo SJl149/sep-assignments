@@ -31,7 +31,7 @@ array2 = []
 array3 = []
 array4 = []
 
-100.times do
+10000.times do
   array1 << collection.sample
   array2 << collection.sample
   array3 << collection.sample
