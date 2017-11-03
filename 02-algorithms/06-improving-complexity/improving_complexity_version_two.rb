@@ -1,25 +1,29 @@
 # This method takes n arrays as input and combine them in sorted ascending  order
 def time_optimiztions_ruby(*arrays)
   combined_array = arrays.flatten
-  quick_sort(combined_array)
+  merge_sort(combined_array)
 end
 
-def quick_sort(collection)
-  lngth = collection.length
-  if lngth <= 1
-    collection
+def merge_sort(ary)
+  if ary.size < 2
+    return ary
   else
-    pivot = collection.delete_at(lngth - 1)
-    smaller = []
-    larger = []
-    collection.each do |item|
-      item <= pivot ? smaller << item : larger << item
-    end
-    sorted = []
-    sorted << quick_sort(smaller)
-    sorted << pivot
-    sorted << quick_sort(larger)
-    sorted.flatten!
+    mid = ary.size / 2
+    left = mergesort(ary[0..mid - 1])
+    right = mergesort(ary[mid..ary.length])
+    merge(left, right)
+  end
+end
+
+def merge(left, right)
+  if left.empty?
+    right
+  elsif right.empty?
+    left
+  elsif left.first < right.first
+    [left.first] + merge(left[1..left.length], right)
+  else
+    [right.first] + merge(left, right[1..right.length])
   end
 end
 
