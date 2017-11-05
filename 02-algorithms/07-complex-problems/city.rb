@@ -8,6 +8,7 @@ class City
     @name = name
     @lat = lat
     @long = long
+    @neighbors = []
   end
-  
+
 end
