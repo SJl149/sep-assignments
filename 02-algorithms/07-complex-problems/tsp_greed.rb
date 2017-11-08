@@ -4,84 +4,65 @@ class Tsp
 
   include Math
 
-  attr_accessor :city_list
+  attr_accessor :city_list_long
+  attr_accessor :city_list_lat
 
   def initialize()
-    @city_list = [
-      [[],[],[],[],[]],
-      [[],[],[],[],[]],
-      [[],[],[],[],[]],
-      [[],[],[],[],[]],
-      [[],[],[],[],[]],
-      [[],[],[],[],[]],
-      [[],[],[],[],[]],
-      [[],[],[],[],[]]
-    ]
-    # 8x5 matrix of long(60-130 by 10) and lat(25-45 by 5)
+    @city_list_long = []
+    @city_list_lat = []
   end
 
   def add_cities(city_nodes)
     city_nodes.each do |city_node|
-      long = (city_node.long / 10).floor - 6
-      lat = (city_node.lat / 5).floor - 5
-      @city_list[long][lat] << city_node
+      @city_list_lat << city_node
+      @city_list_long << city_node
     end
+    @city_list_long.sort! { |a, b| a.long <=> b.long }
+    @city_list_lat.sort! { |a, b| a.lat <=> b.lat }
   end
 
-  def city_neighbors(city_node)
-    long = (city_node.long / 10).floor - 6
-    lat = (city_node.lat / 5).floor - 5
-    @city_list[long][lat]
-  end
-
-  def find_route(cities)
-    # add to distance matrix
+  def get_route(cities)
+    # add to lat and long arrays
+    @city_list_lat = []
+    @city_list_long = []
     add_cities(cities)
     # set current_city and neighbors
     neighbors = cities
-    current_city = cities.shift
+    current_city = neighbors.shift
     route = [current_city]
-    @city_list.delete(current_city)
 
-    while neighbors.count != 1 do
-      next_city = nearest_neighbor(neighbors, current_city)
+    while neighbors.count > 1 do
+      next_city = nearest_neighbor(current_city)
       route << neighbors.delete(next_city)
-      @city_list.delete(current_city)
+      @city_list_lat.delete(current_city)
+      @city_list_long.delete(current_city)
       current_city = next_city
     end
     route << neighbors.shift
+    route << route[0]
     route
-    # find closest neighbor for each city
-    # find shortest route
   end
 
-  def nearest_neighbor(cities, current_city)
-    # get neighbor_cities from @city_list
-    long = (current_city.long / 10).floor - 6
-    lat = (current_city.lat / 5).floor - 5
-    neighbor_cities = @city_list[long][lat]
-    while neighbor_cities.empty? do
-      if long < 6
-        neighbor_cities = @city_list[long + 1][lat]
-      end
-      if long > 0
-        neighbor_cities = @city_list[long - 1][lat]
-      end
-      if lat < 5
-        neighbor_cities = @city_list[long][lat + 1]
-      end
-      if lat > 0
-        neighbor_cities = @city_list[long][lat - 1]
-      end
-    end
+  def nearest_neighbor(current_city)
+    # get neighbor_cities from @city_list_long and @city_list_lat
+    ilong = @city_list_long.index(current_city)
+    ilat = @city_list_lat.index(current_city)
+    neighbor_cities = []
+    neighbor_cities << @city_list_long[ilong - 1]
+    neighbor_cities << @city_list_long[ilong + 1]
+    neighbor_cities << @city_list_lat[ilat - 1]
+    neighbor_cities << @city_list_lat[ilat + 1]
 
     # find nearest city
     shortest = 10000
     nearest_city = nil
     neighbor_cities.each do |neighbor|
-      dist = calc_dist(current_city, neighbor)
-      if dist < shortest
-        nearest_city = neighbor
+      if neighbor != nil
+        dist = calc_dist(current_city, neighbor)
+        if dist < shortest
+          shortest = dist
+          nearest_city = neighbor
+        end
       end
     end
     nearest_city
@@ -90,7 +71,6 @@ class Tsp
   private
 
   def calc_dist(city1, city2)
-
     radius_mi = 3959
     deg_lat = deg_to_rad(city2.lat - city1.lat)
     deg_long = deg_to_rad(city2.long - city1.long)

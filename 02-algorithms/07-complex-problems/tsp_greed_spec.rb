@@ -37,28 +37,11 @@ RSpec.describe Tsp, type: Class do
 
   let (:lowman) { Tsp.new() }
 
-  describe "#add_city" do
-    it "adds a city node to the matrix with the right longitude and latitude" do
-      lowman.add_cities([new_york])
-      nyc_long = (new_york.long / 10).floor - 6
-      nyc_lat = (new_york.lat / 5).floor - 5
-      expect(lowman.city_list[nyc_long][nyc_lat]).to include(new_york)
-    end
-  end
-
-  describe "#nearest_neighbor" do
-    it "returns the nearest neighbor city nodes" do
-      cities = [new_york, los_angeles, boston, miami, philadelphia]
-      lowman.add_cities(cities)
-      expect(lowman.nearest_neighbor(cities, atlanta)).to eq(miami)
-    end
-  end
-
-  describe "#find_route" do
+  describe "#get_route" do
     it "finds an efficient route given a list of cities" do
       cities = [new_york, los_angeles, boston, miami, philadelphia, houston, atlanta, omaha, columbus, jacksonville]
-      ideal_route = [new_york, boston, philadelphia, columbus, atlanta, jacksonville, miami, houston, omaha, los_angeles]
-      expect(lowman.find_route(cities)).to eq(ideal_route)
+      ideal_route = [new_york, philadelphia, boston, miami, jacksonville, atlanta, columbus, omaha, houston, los_angeles, new_york]
+      expect(lowman.get_route(cities)).to eq(ideal_route)
     end
   end
 

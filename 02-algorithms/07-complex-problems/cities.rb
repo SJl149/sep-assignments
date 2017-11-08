@@ -1,4 +1,5 @@
 require_relative 'city'
+require_relative 'tsp_greed'
 
 new_york = City.new("New York", 40.7, 74)
 los_angeles = City.new("Los Angeles", 34, 118.2)
@@ -30,3 +31,10 @@ kansas_city = City.new("Kansas City", 39.1, 94.6)
 atlanta = City.new("Atlanta", 33.7, 84.4)
 omaha = City.new("Omaha", 41.3, 96)
 miami = City.new("Miami", 25.8, 80.2)
+
+lowman = Tsp.new()
+
+cities = [new_york, oklahoma_city, portland, las_vegas, milwaukee, kansas_city, chicago, phoenix, san_antonio, san_diego, dallas, san_jose, austin, indianapolis, san_francisco, detroit, charlotte, memphis, seattle, denver, washington, los_angeles, boston, miami, philadelphia, houston, atlanta, omaha, columbus, jacksonville]
+
+route = lowman.get_route(cities)
+route.each { |city| puts city.name }
