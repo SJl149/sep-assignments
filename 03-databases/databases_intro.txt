@@ -1,0 +1,71 @@
+1. Given the values table below, what data types do each of these values represent?
+
+  "A Clockwork Orange" is a string.
+  "42" is an integer.
+  "09/02/1945" is a datetime.
+  "98.7" and "15.99" are floats.
+
+2. Explain in your own words when a database might be used. Explain when a text file might be used.
+
+  A database or a text file could be used when data needs to persist after a set of code runs, or when the data is shared by different sets of code that don't always run at the same time. A database is used when data sets are large and the data needs to be searched or manipulated in some other way.
+
+3. Describe one difference between SQL and other programming languages.
+
+  SQL is a declarative language, meaning what we what to do is defined but the procedure to do that action is not. SQL will determine the best procedure. Other programming languages must define the procedure of an action.
+
+4. In your own words, explain how the pieces of a database system fit together at a high level.
+
+  Data is categorized as described in the next question. It is saved in binary file format and is designed to quickly read and write data. 
+
+5. Explain the meaning of table, row, column, and value.
+
+  A "table" is a set of data with rows and columns. A "column" is a data type with many instances or values. Each "value" is a unique instance of the type of data. A "row" will tie a value for each data type together.
+
+6. List 3 data types that can be used in a table.
+
+  Among the many data types used in a table, you could use integers, strings, and datetimes.
+
+7. Given the payments table below, provide an English description and the results for the following queries:
+
+  a)SELECT date, amount
+    FROM payments;
+
+    This finds all values in the columns "date" and "amount" that are in the table "payments".
+
+  b)SELECT amount
+    FROM payments
+    WHERE amount > 500;
+
+    This finds all values of "amount" that are greater than 500.
+
+  c)SELECT *
+    FROM payments
+    WHERE payee = "Mega Foods";
+
+    This query finds the row that contains "payee = 'Mega Foods'" and returns the values in that row for all columns(date, payee, amount, and memo).
+
+8. Given the users table below, write the following SQL queries and their results:
+
+  a) Select the email and sign-up date for the user named DeAndre Data.
+
+    SELECT email, signup
+    FROM users
+    WHERE name = "DeAndre Data";
+
+    (result) -> datad@comcast.net	2008-01-20
+
+  b) Select the user ID for the user with email 'aleesia.algorithm@uw.edu'.
+
+    SELECT userid
+    FROM users
+    WHERE email = "aleesia.algorithm@uw.edu";
+
+    (result) -> 1
+
+  c) Select all the columns for the user ID equal to 4.
+
+    SELECT *
+    FROM users
+    WHERE userid = 4;
+
+    (result) -> 4	Brandy Boolean	bboolean@nasa.gov	1999-10-15
