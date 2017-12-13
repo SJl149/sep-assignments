@@ -1,0 +1,55 @@
+1. Answer all of these questions. Write at least one paragraph per question. Send your answers to your mentor for review.
+
+  a) What's a RubyGem and why would you use one?
+
+    A RubyGem is a packaged Ruby application or library that can be downloaded installed and used in other Ruby applications. The purpose is to add modular functionality to Ruby code allowing parts of code to be reusable.
+
+  b) What's the difference between lazy and eager loading?
+
+    Lazy loading is when an object is only calculated or loaded when it is needed. Eager loading is the opposite, meaning an object is calculated or loaded upon initialization.
+
+  c) What's the difference between the CREATE TABLE and INSERT INTO SQL statements?
+
+    CREATE TABLE creates a new table and initializes columns with input types. INSERT INTO merely adds values to an existing table.
+
+  d) What's the difference between extend and include? When would you use one or the other?
+
+    'Include' makes a method available to an instance variable while 'extend' is available to the class itself. If you want to use the method on an instance of a class then you should use 'include'. (Actually, I read that 'include' also uses a 'self.included' method which is equivalent to 'extend', so most simple use 'include'.)
+
+  e) In persistence.rb, why do the save methods need to be instance (vs. class) methods?
+
+    They need to be instance methods because they are saving instance variables.
+
+  d) Given the Jar-Jar Binks example earlier, what is the final SQL query in persistence.rb's save! method?
+
+    UPDATE character
+      SET character_name = 'Jar-Jar Binks' AND star_rating = 1
+      WHERE id = 7;
+
+  e) AddressBook's entries instance variable no longer returns anything. We'll fix this in a later checkpoint. What changes will we need to make?
+
+    We have to write methods to relate it to an entries.
+
+2. Write a Ruby method that converts snake_case to CamelCase using regular expressions (you can test them on Rubular). Send your code to your mentor.
+
+  Regex only:
+    def snake_to_camel(snake_cased_word)
+      snake_cased_word.gsub(/(?:_|^)(\w)/){$1.upcase}
+    end
+
+  Ruby methods:
+    def snake_to_camel(snake_cased_word)
+      snake_cased_word.split('_').map(&:capitalize).join(' ')
+    end
+
+3. Add a select method which takes an attribute and value and searches for all records that match:
+
+  def find_by(attribute, value)
+    row = connection.get_first_row <<-SQL
+      SELECT #{columns.join ","} FROM #{table}
+      WHERE #{attribute} = '#{value}';
+    SQL
+
+    data = Hash[columns.zip(row)]
+    new(data)
+  end
